@@ -1,4 +1,4 @@
-# MERN Amazon clone
+# MERN App clone
 
 STEPS:
 

@@ -6,7 +6,7 @@ const data = {
       category: 'Shoes',
       image: '/images/p1.jpg',
       price: 300,
-      countInStock: 20,
+      countInStock: 0,
       brand: 'Nike',
       rating: 5,
       numReviews: 15,

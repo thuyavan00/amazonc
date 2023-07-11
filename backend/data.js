@@ -1,7 +1,7 @@
 const data = {
   products: [
     {
-      _id: '1',
+      //_id: '1',
       name: 'Nike Air Jordans',
       slug: 'nike-air-jordans',
       category: 'Shoes',
@@ -14,7 +14,7 @@ const data = {
       description: 'shoes',
     },
     {
-      _id: '2',
+      //_id: '2',
       name: 'Converse High Tops',
       slug: 'converse-high-tops',
       category: 'Shoes',
@@ -27,7 +27,7 @@ const data = {
       description: 'shoes',
     },
     {
-      _id: '3',
+      //_id: '3',
       name: 'Adidas Stan Smiths',
       slug: 'adidas-stan-smiths',
       category: 'Shoes',
@@ -40,7 +40,7 @@ const data = {
       description: 'shoes',
     },
     {
-      _id: '4',
+      //_id: '4',
       name: 'New Balance 550s',
       slug: 'new-balance-550',
       category: 'Shoes',

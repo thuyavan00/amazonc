@@ -28,6 +28,9 @@ app.use(express.urlencoded({ extended: true }));
   res.send(process.env.STRIPE_CLIENT_ID || 'sb');
 });*/
 
+app.get('/api/keys/paypal', (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
+});
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-08-01',
 });

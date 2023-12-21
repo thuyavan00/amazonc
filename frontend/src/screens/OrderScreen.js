@@ -9,6 +9,7 @@ import { Store } from '../store';
 import axios from 'axios';
 import { getError } from '../util';
 import { Helmet } from 'react-helmet-async';
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
@@ -112,6 +113,8 @@ export default function OrderScreen() {
     toast.error(getError(err));
   }
 
+  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+
   useEffect(() => {
     const fetchOrder = async () => {
       try {
@@ -134,6 +137,22 @@ export default function OrderScreen() {
         dispatch({ type: 'PAY_RESET' });
       }
     } else {
+      const loadPayPalScript = async () => {
+        const { data: clientId } = await axios.get('/api/keys/paypal', {
+          headers: { authorization: `Bearer ${userInfo.token} ` },
+        });
+
+        paypalDispatch({
+          type: 'resetOptions',
+          value: {
+            'client-id': clientId,
+            currency: 'CAD',
+          },
+        });
+
+        paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
+      };
+      loadPayPalScript();
       /*const loadStripeScript = async () => {
         const { data: clientId } = await axios.get('/api/keys/stripe', {
           headers: { authorization: `Bearer ${userInfo.token}` },
@@ -149,7 +168,7 @@ export default function OrderScreen() {
       };
       loadStripeScript();*/
     }
-  }, [order, userInfo, orderId, navigate, successPay]); //dependency array- use all elements used in useEffect
+  }, [order, userInfo, orderId, navigate, paypalDispatch, successPay]); //dependency array- use all elements used in useEffect
 
   return loading ? (
     <LoadingBox></LoadingBox>
@@ -270,18 +289,18 @@ export default function OrderScreen() {
                 </ListGroup.Item>
                 {!order.isPaid && (
                   <ListGroup.Item>
-                    <div>
-                      {clientSecret && stripePromise && (
-                        <Elements
-                          stripe={stripePromise}
-                          options={{ clientSecret }}
-                        >
-                          <PaymentScreen />
-                        </Elements>
-                      )}
-                    </div>
-
-                    {loadingPay && <LoadingBox></LoadingBox>}
+                    {isPending ? (
+                      <LoadingBox />
+                    ) : (
+                      <div>
+                        <PayPalButtons
+                          createOrder={createOrder}
+                          onApprove={onApprove}
+                          onError={onError}
+                        ></PayPalButtons>
+                      </div>
+                    )}
+                    {loadingPay && <LoadingBox />}
                   </ListGroup.Item>
                 )}
               </ListGroup>

@@ -1,12 +1,27 @@
 version: '3.4'
 
 services:
+  frontend:
+    image: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+
   backend:
     image: backend
     build:
-      context: backend
-      dockerfile: ./Dockerfile
-    environment:
-      NODE_ENV: production
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - 5000:5000
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    ports:
+      - '27017:27017'

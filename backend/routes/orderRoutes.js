@@ -25,6 +25,15 @@ orderRouter.post(
 );
 
 orderRouter.get(
+  '/mine',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const orders = await Order.find({ user: req.user._id });
+    res.send(orders);
+  })
+);
+
+orderRouter.get(
   '/:id',
   isAuth,
   expressAsyncHandler(async (req, res) => {
@@ -45,7 +54,7 @@ orderRouter.put(
     const order = await Order.findById(req.params.id);
     if (order) {
       order.isPaid = true;
-      order.ispaidAt = Date.now();
+      order.paidAt = Date.now();
       order.paymentResult = {
         id: req.body.id,
         status: req.body.status,

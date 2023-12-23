@@ -20,7 +20,7 @@ jobs:
           node-version: '18'
 
       - name: install dependecnies
-        run: cd backend && npm install && cd ../frontend && npm install && npm run build
+        run: cd backend && npm install && cd ../frontend && npm install
 
       - name: Upload to S3
         uses: jakejarvis/s3-sync-action@master

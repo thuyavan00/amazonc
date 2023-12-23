@@ -2,9 +2,9 @@ name: Upload Website
 
 on:
   push:
-    branches: ['main']
+    branches: ['master']
   pull_request:
-    branches: ['main']
+    branches: ['master']
 
 jobs:
   build:
@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Run app
+      - name: build app
         run: npm start
 
       - name: Upload to S3

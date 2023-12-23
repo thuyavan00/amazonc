@@ -19,11 +19,8 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build app
-        run: npm run build
+      - name: Run app
+        run: npm start
 
       - name: Upload to S3
         uses: jakejarvis/s3-sync-action@master

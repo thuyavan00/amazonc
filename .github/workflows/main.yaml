@@ -19,6 +19,9 @@ jobs:
         with:
           node-version: '18'
 
+      - name: install dependecnies
+        run: cd backend && npm install && cd ../frontend && npm install && npm run build
+
       - name: build app
         run: npm start
 

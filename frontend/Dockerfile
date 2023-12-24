@@ -16,4 +16,4 @@ RUN npm install
 EXPOSE 3000
 
 # Command to start the React app
-CMD ["npm", "start"]
+CMD ["npm", "run build"]

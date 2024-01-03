@@ -1,10 +1,7 @@
-import React, { useContext, useEffect, useReducer, useState } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Elements, useStripe } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import PaymentScreen from '../screens/PaymentScreen';
 import { Store } from '../store';
 import axios from 'axios';
 import { getError } from '../util';
@@ -41,9 +38,6 @@ function reducer(state, action) {
 //useeffect to get order info from backend
 //useParams used to get order Id from URL
 export default function OrderScreen() {
-  const [stripePromise, setStripePromise] = useState(null);
-  const [clientSecret, setClientSecret] = useState('');
-
   const { state } = useContext(Store);
   const { userInfo } = state;
   const params = useParams();
@@ -57,24 +51,6 @@ export default function OrderScreen() {
       successPay: false,
       loadingPay: false,
     });
-
-  //const [{ isPending }, stripeDispatch] = useStripe();
-  useEffect(() => {
-    fetch('/config').then(async (r) => {
-      const { publishableKey } = await r.json();
-      setStripePromise(loadStripe(publishableKey));
-    });
-  }, []);
-
-  useEffect(() => {
-    fetch('/create-payment-intent', {
-      method: 'POST',
-      body: JSON.stringify({}),
-    }).then(async (result) => {
-      var { clientSecret } = await result.json();
-      setClientSecret(clientSecret);
-    });
-  }, []);
 
   function createOrder(data, actions) {
     return actions.order
@@ -153,20 +129,6 @@ export default function OrderScreen() {
         paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
       };
       loadPayPalScript();
-      /*const loadStripeScript = async () => {
-        const { data: clientId } = await axios.get('/api/keys/stripe', {
-          headers: { authorization: `Bearer ${userInfo.token}` },
-        });
-        stripeDispatch({
-          type: 'reserOptions',
-          value: {
-            'client-id': clientId,
-            currency: 'USD',
-          },
-        });
-        stripeDispatch({ type: 'setLoadingStatus', value: 'pending' });
-      };
-      loadStripeScript();*/
     }
   }, [order, userInfo, orderId, navigate, paypalDispatch, successPay]); //dependency array- use all elements used in useEffect
 

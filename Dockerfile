@@ -6,14 +6,16 @@ WORKDIR /app
 
 # Copy package.json and package-lock.json to the container
 COPY package.json ./
-COPY package-lock.json ./
-COPY ./ ./
+COPY . .
 
-# Install dependencies
-RUN npm install
+# Install backend dependencies
+RUN cd backend && npm install
+
+# Install frontend dependencies and build the frontend
+RUN cd frontend && npm install && npm run build
 
 # Expose the port that the React app will run on
-EXPOSE 3000
+EXPOSE 5000
 
-# Command to start the React app
-CMD ["npm", "run build"]
+CMD ["npm", "start"]
+

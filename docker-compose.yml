@@ -1,27 +1,15 @@
 version: '3.4'
 
 services:
-  frontend:
-    image: frontend
+  app:
+    container_name: mern-amazonc
     build:
-      context: ./frontend
+      context: .
       dockerfile: Dockerfile
     ports:
-      - 3000:3000
-    depends_on:
-      - backend
+      - '5000:5000'
+    volumes:
+      - app:/app/build/
 
-  backend:
-    image: backend
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    ports:
-      - 5000:5000
-    depends_on:
-      - mongo
-
-  mongo:
-    image: mongo
-    ports:
-      - '27017:27017'
+volumes:
+  app:

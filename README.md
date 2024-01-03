@@ -2,6 +2,4 @@
 
 STEPS:
 
-1. Installed tools
-2. Created React App
-3. Create Git Repository
+Start app: npm run

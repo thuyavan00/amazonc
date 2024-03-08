@@ -54,3 +54,9 @@ Welcome to the Amazon Clone, a fully-functional e-commerce web application built
    git clone https://github.com/thuyavan00/amazonc
    cd amazonc
    ```
+
+2. Run the project:
+
+```bash
+npm start
+```

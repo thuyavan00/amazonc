@@ -4,7 +4,7 @@
 
 ## Overview
 
-Welcome to the Amazon Clone, a fully-functional e-commerce web application built using the MERN (MongoDB, Express.js, React, Node.js) stack. This project replicates the core features of the Amazon website, allowing users to browse products, add items to the cart, proceed to checkout, and make purchases securely using PayPal API.
+This is a fully-functional e-commerce web application built using the MERN (MongoDB, Express.js, React, Node.js) stack. This project replicates the core features of the Amazon website, allowing users to browse products, add items to the cart, proceed to checkout, and make purchases securely using PayPal API.
 
 ## Features
 

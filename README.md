@@ -57,6 +57,6 @@ Welcome to the Amazon Clone, a fully-functional e-commerce web application built
 
 2. Run the project:
 
-```bash
-npm start
-```
+   ```bash
+   npm start
+   ```
